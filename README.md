@@ -28,6 +28,10 @@ The application is designed to answer questions about:
 
 Unlike a generic chatbot, **Ask Vireo uses source-aware retrieval** and deterministic analytical summaries so that responses remain tied to the available Vireo data.
 
+### 🌐 Live Demo
+
+**[vireo-refund-ai.streamlit.app](https://vireo-refund-ai.streamlit.app)**
+
 ---
 
 ## 📸 Project Showcase
@@ -506,7 +510,15 @@ Current verified capabilities include:
 
 ### 🔗 GitHub
 
-**Ashutosh9-pan**
+**[github.com/Ashutosh9-pan](https://github.com/Ashutosh9-pan)**
+
+### 🌐 Live Application
+
+**[vireo-refund-ai.streamlit.app](https://vireo-refund-ai.streamlit.app)**
+
+### 📁 Repository
+
+**[Ashutosh9-pan/Vireo-Refund-AI](https://github.com/Ashutosh9-pan/Vireo-Refund-AI)**
 
 ---
 
