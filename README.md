@@ -1,248 +1,306 @@
 # 💳 Vireo Refund AI
 
-Vireo Refund AI is a Streamlit-based refund intelligence dashboard and grounded AI assistant built for analyzing Vireo Audio support-ticket data.
+### AI-Powered Refund Intelligence & Support Analytics Dashboard
 
-It combines deterministic analytics, source-aware retrieval, and Google Gemini to answer refund, support, reconciliation, and ticket-level questions from the supplied data pack.
+> **Vireo Refund AI** is a Streamlit-based refund intelligence platform that combines deterministic analytics, source-aware retrieval, and Google Gemini to analyze support tickets, refunds, customer support operations, and ticket-level activity.
 
----
+<p align="center">
 
-## 📸 Project Screenshots
+**📊 Analytics** • **🤖 RAG Assistant** • **🎫 Ticket Intelligence** • **🔎 Source Grounding** • **🧪 Tested**
 
-### Dashboard overview
-
-Shows the main KPI layer, interactive filters, and refund analytics by reason and channel.
-
-![Vireo Refund AI dashboard](docs/screenshots/dashboard-overview.png)
-
-### Analytics + AI assistant
-
-Shows the Business Snapshot and an analytics question answered from the calculated data summary.
-
-![Vireo Refund AI analytics assistant](docs/screenshots/analytics-ai-response.png)
-
-### RAG knowledge response
-
-Shows a grounded refund-reason response with retrieved policy and knowledge sources.
-
-![Vireo Refund AI RAG response](docs/screenshots/rag-knowledge-response.png)
-
-### Exact ticket retrieval
-
-Shows the AI assistant retrieving the exact canonical record for `TK-240003` and displaying its source.
-
-![Vireo Refund AI ticket retrieval](docs/screenshots/ticket-retrieval.png)
-
-### Unknown ticket handling
-
-Shows the assistant returning a source-availability message for an unknown ticket instead of fabricating ticket details.
-
-![Vireo Refund AI unknown ticket handling](docs/screenshots/unknown-ticket-handling.png)
+</p>
 
 ---
 
-## 🚀 What the project does
+## ✨ Overview
 
-- Analyzes support tickets, refunds, CSAT, channels, teams, priorities and agents.
-- Uses one canonical ticket record per `ticket_id` for refund analysis.
-- Reconciles migrated helpdesk/Freshdesk records and legacy monetary fields.
-- Provides ticket-level refund exploration.
-- Provides an AI assistant, **Ask Vireo**, using retrieval-augmented generation (RAG) with Gemini.
-- Grounds answers in the available policy, internal email thread, knowledge files, analytical summary and canonical ticket records.
-- Displays retrieved sources with AI responses.
-- Handles unknown or unsupported requests without inventing unsupported Vireo data.
+Vireo Refund AI transforms raw support-ticket data into an interactive analytics dashboard with a grounded AI assistant called **Ask Vireo**.
 
----
+The application is designed to answer questions about:
 
-## 📊 Dashboard features
+* 💰 Refunds and refund reasons
+* 🎫 Individual support tickets
+* 📊 Business and operational analytics
+* 📚 Refund and support policies
+* 🔄 Data reconciliation
+* 👥 Teams, agents and channels
+* ⭐ Customer satisfaction
 
-### KPI overview
-
-The dashboard reports:
-
-- Ticket volume
-- Refund-ticket volume
-- Refund amount
-- Average refund
-- Refund rate
-- Average CSAT
-
-### Refund analysis
-
-Refund activity can be analyzed by:
-
-- Reason code
-- Channel
-- Month
-- Team
-- Agent
-
-### Interactive filters
-
-The dashboard supports filtering by:
-
-- Channel
-- Team
-- Status
-- Priority
-
-### Ticket explorer
-
-Refund tickets can be searched by:
-
-- Ticket ID
-- Customer ID
-- Order ID
-
-### Data reconciliation
-
-The dashboard exposes raw ticket rows, unique ticket IDs, duplicate export rows and source-system counts so migrated data can be reconciled before financial analysis.
+Unlike a generic chatbot, **Ask Vireo uses source-aware retrieval** and deterministic analytical summaries so that responses remain tied to the available Vireo data.
 
 ---
 
-## 🤖 Ask Vireo — RAG architecture
+## 📸 Project Showcase
+
+### 📊 Dashboard Overview
+
+Interactive refund intelligence dashboard with KPIs, filters and refund analytics.
+
+![Vireo Refund AI Dashboard](docs/screenshots/dashboard-overview.png)
+
+---
+
+### 🤖 Analytics + AI Assistant
+
+Ask Vireo can answer analytical questions using calculated dashboard summaries.
+
+![Analytics AI Response](docs/screenshots/analytics-ai-response.png)
+
+---
+
+### 📚 RAG Knowledge Response
+
+Policy and knowledge-based questions are answered using retrieved project sources.
+
+![RAG Knowledge Response](docs/screenshots/rag-knowledge-response.png)
+
+---
+
+### 🎫 Exact Ticket Retrieval
+
+Ask Vireo can retrieve the exact canonical record for a requested ticket.
+
+![Ticket Retrieval](docs/screenshots/ticket-retrieval.png)
+
+---
+
+### 🛡️ Unknown Ticket Handling
+
+Unknown ticket IDs are handled safely without fabricating ticket information.
+
+![Unknown Ticket Handling](docs/screenshots/unknown-ticket-handling.png)
+
+---
+
+## 🚀 Key Features
+
+### 📊 Refund Intelligence Dashboard
+
+* Total ticket volume
+* Refund-ticket volume
+* Total refund amount
+* Average refund
+* Refund rate
+* Average CSAT
+* Refund analysis by reason
+* Refund analysis by channel
+* Monthly refund analysis
+* Team and agent analysis
+
+### 🎛️ Interactive Filtering
+
+Filter dashboard results using:
+
+* 💬 Channel
+* 👥 Team
+* 📌 Status
+* 🚨 Priority
+
+### 🎫 Ticket Explorer
+
+Search and explore refund-related tickets using:
+
+* Ticket ID
+* Customer ID
+* Order ID
+
+### 🤖 Ask Vireo AI Assistant
+
+The AI assistant supports multiple question types:
+
+* 📚 Policy questions
+* 📈 Analytics questions
+* 💳 Refund-reason questions
+* 🔄 Reconciliation questions
+* 🎫 Exact ticket questions
+
+### 🔎 Source-Aware Retrieval
+
+Retrieved sources are displayed alongside AI responses, making it easier to understand where an answer came from.
+
+### 🛡️ Grounded Responses
+
+The system is designed to avoid unsupported answers.
+
+For example, an unknown ticket such as `TK-999999` returns a source-availability response instead of invented ticket information.
+
+---
+
+# 🧠 Ask Vireo — RAG Architecture
 
 ```text
-                    User Question
-                          |
-                          v
-                    Intent Detection
-                          |
-                          v
-                 Source-aware Retrieval
-                          |
-          +---------------+----------------+
-          |               |                |
-          v               v                v
-   support-policy   email-thread     knowledge/*.md/txt
-          |               |                |
-          +---------------+----------------+
-                          |
-             +------------+------------+
-             |                         |
-             v                         v
-       data_summary             canonical tickets
-             |
-             +------------+------------+
-                          |
-                          v
-                 TF-IDF + Cosine Similarity
-                          |
-                          v
-                  Retrieved Context
-                          |
-                          v
-                      Gemini
-                          |
-                          v
-              Grounded Answer + Sources
+                         ┌─────────────────┐
+                         │   User Question │
+                         └────────┬────────┘
+                                  │
+                                  ▼
+                         ┌─────────────────┐
+                         │ Intent Detection│
+                         └────────┬────────┘
+                                  │
+                                  ▼
+                      ┌────────────────────────┐
+                      │ Source-Aware Retrieval │
+                      └───────────┬────────────┘
+                                  │
+             ┌────────────────────┼────────────────────┐
+             │                    │                    │
+             ▼                    ▼                    ▼
+      Support Policy        Email Thread        Knowledge Files
+      support-policy.pdf    email-thread.txt    knowledge/*.md
+             │                    │                    │
+             └────────────────────┼────────────────────┘
+                                  │
+                     ┌────────────┴────────────┐
+                     │                         │
+                     ▼                         ▼
+               Data Summary            Canonical Tickets
+                     │                         │
+                     └────────────┬────────────┘
+                                  │
+                                  ▼
+                       TF-IDF + Cosine Similarity
+                                  │
+                                  ▼
+                         Retrieved Context
+                                  │
+                                  ▼
+                              Gemini
+                                  │
+                                  ▼
+                     Grounded Answer + Sources
 ```
 
-The retrieval layer is intentionally source-aware:
+### 🎯 Retrieval Strategy
 
-- **Policy questions** use `support-policy.pdf` and supporting knowledge documents.
-- **Exact ticket questions** retrieve the requested canonical ticket record only.
-- **Reconciliation questions** use the analytical summary and internal email thread, with policy context where useful.
-- **Analytics questions** use the deterministic `data_summary` document.
-- **Refund-reason questions** combine analytical findings with policy reason-code meanings.
+| Question Type     | Primary Source                         |
+| ----------------- | -------------------------------------- |
+| 📚 Policy         | `support-policy.pdf` + knowledge files |
+| 🎫 Exact Ticket   | Canonical ticket record                |
+| 🔄 Reconciliation | Analytical summary + email thread      |
+| 📈 Analytics      | Deterministic `data_summary`           |
+| 💳 Refund Reason  | Analytics + policy reason codes        |
 
-This design keeps calculations deterministic while using Gemini for natural-language synthesis.
+The design keeps **financial calculations deterministic** while using Gemini for natural-language synthesis.
 
 ---
 
-## 🗂️ Data sources
+# 📈 Verified Dashboard Snapshot
+
+Based on the tested all-filter dashboard view:
+
+| Metric                          |                     Value |
+| ------------------------------- | ------------------------: |
+| 🎫 Raw ticket rows              |                **12,238** |
+| 🧾 Canonical ticket IDs         |                **11,600** |
+| 🔁 Duplicate export rows        |                   **638** |
+| 💳 Refund tickets               |                 **2,340** |
+| 💰 Canonical refund amount      |            **₹6,709,932** |
+| 📊 Average refund               |               **~₹2,867** |
+| 📈 Refund rate                  |                **~20.2%** |
+| ⭐ Average CSAT                  |             **~3.49 / 5** |
+| 🔎 Largest refund reason        | **GW-OTHER — ₹2,907,036** |
+| 📅 Highest monthly refund value |    **2025-11 — ₹575,984** |
+
+> ℹ️ These values are generated from the canonical reconciliation logic and the tested dashboard configuration.
+
+---
+
+# 🔄 Data Reconciliation
+
+Vireo Refund AI includes a canonical data-processing layer to prevent duplicate or inconsistent records from affecting refund analysis.
+
+### Reconciliation Rules
+
+* One canonical record is maintained per `ticket_id`.
+* Current helpdesk records are preferred when the same ticket exists across systems.
+* Legacy monetary fields are normalized before analysis.
+* Duplicate migration/re-import rows are not counted as separate tickets.
+* Analytical calculations are performed on the canonical dataset.
+
+This ensures that refund metrics are based on a consistent dataset before reaching the AI layer.
+
+---
+
+# 🗂️ Data Sources
 
 The project uses the supplied Vireo support data pack:
 
-- `data/tickets.csv` — support-ticket export.
-- `data/agents.csv` — agent roster/assignments.
-- `data/customers.csv` — customer records.
-- `data/orders.csv` — order records.
-- `data/products.csv` — product catalog.
-- `data/support-policy.pdf` — customer-support operating policy v3.2.
-- `data/email-thread.txt` — internal discussion about the refund reconciliation task.
-- `knowledge/` — project knowledge files used by the RAG layer.
+```text
+data/
+├── tickets.csv
+├── agents.csv
+├── customers.csv
+├── orders.csv
+├── products.csv
+├── support-policy.pdf
+└── email-thread.txt
+```
 
-The ticket export covers support activity from January 2025 through June 2026, with timestamps supplied by the source data in IST.
+Additional knowledge used by the RAG layer:
 
----
+```text
+knowledge/
+└── refund_guide.md
+```
 
-## 🔍 Data reconciliation approach
-
-The canonical ticket dataset contains one record per `ticket_id`.
-
-When the same ticket appears in both migrated/legacy and current helpdesk data, the current helpdesk record is preferred.
-
-The legacy system stores monetary fields in its native unit while the current helpdesk stores rupees. Legacy-only monetary values are normalized by the canonical data loader before refund analysis.
-
-Duplicate migration/re-import rows are not counted as separate canonical tickets.
+The ticket export covers support activity from **January 2025 through June 2026**, with timestamps supplied by the source data in IST.
 
 ---
 
-## 📈 Current verified dashboard findings
+# 🧪 Testing
 
-Using the tested all-filter dashboard view:
+The project includes an automated **Pytest** suite covering core retrieval, reconciliation and grounding behavior.
 
-| Metric | Value |
-|---|---:|
-| Raw ticket rows | 12,238 |
-| Unique/canonical ticket IDs | 11,600 |
-| Duplicate export rows | 638 |
-| Refund tickets | 2,340 |
-| Canonical refund amount | ₹6,709,932 |
-| Average refund | ~₹2,867 |
-| Refund rate | ~20.2% |
-| Average CSAT | ~3.49/5 |
-| Largest refund reason by value | `GW-OTHER` — ₹2,907,036 |
-| Highest monthly refund value | `2025-11` — ₹575,984 |
-
-These values depend on the canonical reconciliation logic and the current all-filter dashboard view.
-
----
-
-## 🧪 Testing
-
-The project has an automated pytest suite covering the core retrieval and reconciliation behavior.
-
-Latest verified result:
+### ✅ Latest Verified Result
 
 ```text
 10 passed
 ```
 
-The tested scenarios include:
+### Tested Scenarios
 
-- Canonical ticket creation.
-- Preference for the helpdesk record when both source systems contain the same ticket.
-- Policy intent detection.
-- Reconciliation intent detection.
-- Analytics intent detection.
-- Refund-reason intent detection.
-- Exact ticket intent detection.
-- Exact retrieval of `TK-240003`.
-- Unknown ticket handling for `TK-999999`.
-- Analytics retrieval restricted to the analytical summary rather than random ticket records.
+* ✅ Canonical ticket creation
+* ✅ Helpdesk-record preference
+* ✅ Policy intent detection
+* ✅ Reconciliation intent detection
+* ✅ Analytics intent detection
+* ✅ Refund-reason intent detection
+* ✅ Exact ticket intent detection
+* ✅ Exact retrieval of `TK-240003`
+* ✅ Unknown ticket handling for `TK-999999`
+* ✅ Analytics retrieval restricted to analytical summaries
 
----
+Run the test suite:
 
-## 🛠️ Technology stack
-
-- Python
-- Pandas
-- Scikit-learn
-- PyPDF
-- Plotly
-- Streamlit
-- Google Gemini API (`google-genai`)
-- python-dotenv
-- Pytest
+```powershell
+python -m pytest -v
+```
 
 ---
 
-## 📁 Project structure
+# 🛠️ Technology Stack
+
+| Technology              | Purpose                       |
+| ----------------------- | ----------------------------- |
+| 🐍 **Python**           | Core application logic        |
+| 🐼 **Pandas**           | Data processing & analytics   |
+| 📐 **Scikit-learn**     | TF-IDF & similarity retrieval |
+| 📄 **PyPDF**            | PDF policy extraction         |
+| 📊 **Plotly**           | Interactive visualizations    |
+| 🎈 **Streamlit**        | Dashboard & UI                |
+| ✨ **Google Gemini API** | AI response generation        |
+| 🔐 **python-dotenv**    | Environment configuration     |
+| 🧪 **Pytest**           | Automated testing             |
+
+---
+
+# 📁 Project Structure
 
 ```text
 Vireo-Refund-AI/
-├── data/
+│
+├── 📂 data/
 │   ├── agents.csv
 │   ├── customers.csv
 │   ├── email-thread.txt
@@ -250,8 +308,9 @@ Vireo-Refund-AI/
 │   ├── products.csv
 │   ├── support-policy.pdf
 │   └── tickets.csv
-├── docs/
-│   ├── screenshots/
+│
+├── 📂 docs/
+│   ├── 📂 screenshots/
 │   │   ├── dashboard-overview.png
 │   │   ├── analytics-ai-response.png
 │   │   ├── rag-knowledge-response.png
@@ -259,98 +318,121 @@ Vireo-Refund-AI/
 │   │   └── unknown-ticket-handling.png
 │   ├── decisions.md
 │   └── memo.md
-├── knowledge/
+│
+├── 📂 knowledge/
 │   └── refund_guide.md
-├── outputs/
-├── src/
+│
+├── 📂 outputs/
+│
+├── 📂 src/
 │   ├── analysis.py
 │   ├── app.py
 │   ├── data_loader.py
-│   ├── refund_analyzer.py
 │   └── rag_engine.py
-├── tests/
+│
+├── 📂 tests/
 │   └── test_refund_analyzer.py
-├── .env
-├── .env.example
-├── .gitignore
-├── README.md
-└── requirements.txt
+│
+├── 🔐 .env.example
+├── 🚫 .gitignore
+├── 📖 README.md
+└── 📦 requirements.txt
 ```
 
 ---
 
-## ⚙️ Local setup
+# ⚙️ Local Setup
 
-### 1. Create and activate the virtual environment
+## 1️⃣ Clone the repository
 
-Windows PowerShell:
+```powershell
+git clone https://github.com/Ashutosh9-pan/Vireo-Refund-AI.git
+cd Vireo-Refund-AI
+```
+
+## 2️⃣ Create a virtual environment
 
 ```powershell
 python -m venv .venv
+```
+
+Activate it:
+
+```powershell
 .venv\Scripts\Activate.ps1
 ```
 
-### 2. Install dependencies
+## 3️⃣ Install dependencies
 
 ```powershell
 python -m pip install -r requirements.txt
 ```
 
-### 3. Configure Gemini
+## 4️⃣ Configure Gemini
 
-Create `.env` in the project root:
+Create a `.env` file in the project root:
 
 ```env
 GEMINI_API_KEY=your_gemini_api_key
 ```
 
-Do **not** commit `.env` or expose the API key publicly.
+> 🔐 **Security:** Never commit `.env` or expose your Gemini API key publicly.
 
-### 4. Run the dashboard
+## 5️⃣ Run the dashboard
 
 ```powershell
 python -m streamlit run src\app.py
 ```
 
-Open the local Streamlit URL shown in the terminal, normally:
+Then open:
 
 ```text
 http://localhost:8501
 ```
 
-### 5. Run the automated tests
+## 6️⃣ Run tests
 
 ```powershell
 python -m pytest -v
 ```
 
-### 6. Optional RAG smoke test
+## 7️⃣ Optional RAG smoke test
 
 ```powershell
 python src\rag_engine.py
 ```
 
-This command runs retrieval/Gemini smoke tests and exits when complete. The RAG module does not need to remain running separately from Streamlit.
+This runs retrieval/Gemini smoke tests and exits when complete.
 
 ---
 
-## 💬 Example Ask Vireo questions
+# 💬 Example Ask Vireo Questions
+
+### 📚 Policy
 
 ```text
 What is the refund policy for a dead-on-arrival product within 7 days?
 ```
 
+### 🔄 Reconciliation
+
 ```text
 Why does the refund export require reconciliation?
 ```
+
+### 📈 Analytics
 
 ```text
 What is the largest refund reason and its refund value?
 ```
 
+### 🎫 Existing Ticket
+
 ```text
 Tell me the details of ticket TK-240003.
 ```
+
+### 🛡️ Unknown Ticket
 
 ```text
 Tell me the details of ticket TK-999999.
@@ -358,24 +440,26 @@ Tell me the details of ticket TK-999999.
 
 ---
 
-## 🛡️ Grounding and safety behavior
+# 🛡️ Grounding & Safety
 
-Ask Vireo is designed to minimize unsupported claims:
+Ask Vireo is designed to minimize unsupported claims.
 
-- Exact ticket requests are constrained to the requested record.
-- Analytics questions use deterministic summary values.
-- Policy questions are grounded in the written support policy.
-- Retrieved sources are displayed with AI answers.
-- Unknown ticket IDs return a source-availability message instead of fabricated ticket details.
-- Out-of-scope questions are not answered from unrelated ticket data.
+### The system:
+
+* 🎯 Restricts exact ticket questions to the requested record.
+* 📊 Uses deterministic analytical summaries for analytics questions.
+* 📚 Grounds policy questions in the written support policy.
+* 🔎 Displays retrieved sources with AI responses.
+* 🚫 Does not fabricate unknown ticket details.
+* 🧩 Avoids using unrelated ticket records for out-of-scope questions.
 
 ---
 
-## 🔐 Configuration and secrets
+# 🔐 Configuration & Secrets
 
-The project uses `.env` for the Gemini API key at runtime.
+Runtime configuration uses environment variables.
 
-The repository should keep:
+The following should remain outside version control:
 
 ```text
 .env
@@ -384,22 +468,64 @@ The repository should keep:
 __pycache__/
 ```
 
-out of version control through `.gitignore`.
+Use:
 
-Use `.env.example` as the safe configuration template.
+```text
+.env.example
+```
 
----
-
-## 📝 Project notes
-
-The project uses Gemini rather than OpenAI for generation. The runtime client is loaded from the `GEMINI_API_KEY` environment variable.
-
-The dashboard calculations remain deterministic and are performed with Pandas, while Gemini is used to turn retrieved Vireo context into a natural-language response.
+as the safe configuration template.
 
 ---
 
-## 📌 Status
+# 📌 Project Status
 
-**Functional and locally verified.**
+### 🟢 Functional & Locally Verified
 
-Dashboard, filters, source-aware RAG retrieval, Gemini responses, ticket retrieval, unknown-ticket handling and automated tests have been exercised successfully during development.
+Current verified capabilities include:
+
+* ✅ Refund analytics dashboard
+* ✅ Interactive filters
+* ✅ Ticket exploration
+* ✅ Data reconciliation
+* ✅ Source-aware RAG retrieval
+* ✅ Gemini-powered responses
+* ✅ Exact ticket retrieval
+* ✅ Unknown-ticket handling
+* ✅ Automated test suite
+* ✅ 10/10 tests passing
+
+---
+
+# 👨‍💻 Author
+
+**Ashutosh Panwar**
+
+💻 Computer Science & Engineering Graduate
+🤖 AI/ML Developer • Data Analytics • Software Development
+
+### 🔗 GitHub
+
+**Ashutosh9-pan**
+
+---
+
+# ⭐ Project Highlights
+
+> **Vireo Refund AI** demonstrates how deterministic data analytics, retrieval-augmented generation, source grounding, and generative AI can be combined into a practical support-intelligence application.
+
+### Built with ❤️ using:
+
+**Python • Pandas • Streamlit • Plotly • Scikit-learn • Google Gemini • Pytest**
+
+---
+
+<p align="center">
+
+### 💳 Vireo Refund AI
+
+**Refund Intelligence • Support Analytics • Grounded AI**
+
+⭐ If you find this project useful, consider giving the repository a star!
+
+</p>
