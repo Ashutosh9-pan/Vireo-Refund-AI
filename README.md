@@ -28,9 +28,15 @@ The application is designed to answer questions about:
 
 Unlike a generic chatbot, **Ask Vireo uses source-aware retrieval** and deterministic analytical summaries so that responses remain tied to the available Vireo data.
 
-### 🌐 Live Demo
+<p align="center">
 
-**[vireo-refund-ai.streamlit.app](https://vireo-refund-ai.streamlit.app)**
+## 🚀 Live Demo
+
+### 🌐 [Open Vireo Refund AI](https://vireo-refund-ai.streamlit.app)
+
+<a href="https://vireo-refund-ai.streamlit.app"><img src="https://img.shields.io/badge/🚀%20Live%20App-Streamlit-red?style=for-the-badge" alt="Open Vireo Refund AI"></a>
+
+</p>
 
 ---
 
